@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">P Ink</string>
+    <string name="badge_spen_only">S PEN ONLY</string>
+    <string name="canvas_hint_title">Write with your S Pen</string>
+    <string name="canvas_hint_subtitle">Arabic, English, or mixed • Finger &amp; palm touches ignored</string>
+    <string name="status_converting">Reading handwriting…</string>
+    <string name="status_auto_convert_pending">Auto-converting shortly…</string>
+    <string name="btn_undo">Undo</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_convert">Convert</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_dismiss">Dismiss</string>
+    <string name="draft_placeholder">Recognized text appears here…</string>
+    <string name="draft_clear_cd">Clear text</string>
+    <string name="tasks_header">Tasks</string>
+    <string name="empty_state_title">Your ink pad is ready</string>
+    <string name="empty_state_body">Handwrite a task with your S Pen above, review the recognized text, and tap Add.</string>
+    <string name="empty_state_image_cd">Illustration of an S Pen and digital ink pad</string>
+    <string name="task_toggle_cd">Toggle task completion</string>
+    <string name="task_delete_cd">Delete task</string>
+    <string name="task_edit_title">Edit task</string>
+    <string name="task_edit_placeholder">Task text</string>
+    <string name="error_no_internet">No internet connection. Connect to Wi-Fi or mobile data and tap Convert to try again.</string>
+    <string name="error_empty_recognition">Could not read any text from the strokes. Try writing a little larger and tap Convert.</string>
+    <string name="error_timeout">Handwriting recognition timed out. Please try again.</string>
+    <string name="error_generic">Could not convert handwriting right now. Please try again.</string>
+    <string name="snackbar_task_deleted">Task deleted</string>
+    <string name="snackbar_undo">Undo</string>
+</resources>

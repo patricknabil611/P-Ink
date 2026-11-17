@@ -1,0 +1,6 @@
+{
+  "name": "P Ink",
+  "description": "Mobile-first S Pen handwriting todo app for Galaxy phones with automatic bilingual Arabic and English Gemini text recognition and local persistence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
