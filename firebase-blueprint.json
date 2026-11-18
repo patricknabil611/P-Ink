@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "UserTask": {
+      "title": "UserTask",
+      "description": "A synced handwriting or typed to-do task belonging to an authenticated user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "text": {
+          "type": "string",
+          "description": "Recognized or typed task description text (1 to 2000 characters)."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the task has been completed."
+        },
+        "clientCreatedAt": {
+          "type": "integer",
+          "description": "Original device creation timestamp in epoch milliseconds."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp written via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last-updated timestamp written via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["userId", "text", "completed", "clientCreatedAt", "createdAt", "updatedAt"]
+    },
+    "UserNote": {
+      "title": "UserNote",
+      "description": "A saved note created from recognized handwriting or edited directly by the user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Optional note title up to 200 characters."
+        },
+        "content": {
+          "type": "string",
+          "description": "Main body text of the note (1 to 20000 characters)."
+        },
+        "clientCreatedAt": {
+          "type": "integer",
+          "description": "Original device creation timestamp in epoch milliseconds."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp written via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last-updated timestamp written via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["userId", "title", "content", "clientCreatedAt", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": {
+        "$ref": "#/entities/UserTask"
+      },
+      "description": "User-owned synchronized to-do tasks."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": {
+        "$ref": "#/entities/UserNote"
+      },
+      "description": "User-owned synchronized handwritten/text notes."
+    }
+  }
+}

@@ -1,32 +1,119 @@
 <resources>
     <string name="app_name">P Ink</string>
-    <string name="badge_spen_only">S PEN ONLY</string>
-    <string name="canvas_hint_title">Write with your S Pen</string>
-    <string name="canvas_hint_subtitle">Arabic, English, or mixed • Finger &amp; palm touches ignored</string>
-    <string name="status_converting">Reading handwriting…</string>
-    <string name="status_auto_convert_pending">Auto-converting shortly…</string>
+    <string name="status_spen_ready">S Pen</string>
+    <string name="status_converting">Reading…</string>
+    <string name="status_auto_convert_pending">Auto…</string>
+
+    <!-- Bottom Navigation / Rail Tabs -->
+    <string name="tab_write">Write</string>
+    <string name="tab_notes">Notes</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- Canvas & Draft Actions -->
     <string name="btn_undo">Undo</string>
     <string name="btn_clear">Clear</string>
     <string name="btn_convert">Convert</string>
-    <string name="btn_add">Add</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_save_note">Save Note</string>
+    <string name="btn_add">Add Task</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_dismiss">Dismiss</string>
     <string name="draft_placeholder">Recognized text appears here…</string>
     <string name="draft_clear_cd">Clear text</string>
+    <string name="palette_toggle_cd">Writing box and pen colors</string>
+
+    <!-- Color Palette Labels -->
+    <string name="palette_section_title">Ink &amp; Pad Colors</string>
+    <string name="palette_bg_label">Pad background</string>
+    <string name="palette_pen_label">Pen color</string>
+    <string name="color_bg_obsidian">Obsidian</string>
+    <string name="color_bg_midnight">Midnight</string>
+    <string name="color_bg_graphite">Graphite</string>
+    <string name="color_bg_plum">Plum</string>
+    <string name="color_bg_forest">Pine</string>
+    <string name="color_bg_cream">Cream</string>
+    <string name="color_bg_white">White</string>
+    <string name="color_pen_ice">Ice</string>
+    <string name="color_pen_cyan">Cyan</string>
+    <string name="color_pen_pink">Pink</string>
+    <string name="color_pen_emerald">Emerald</string>
+    <string name="color_pen_amber">Amber</string>
+    <string name="color_pen_violet">Violet</string>
+    <string name="color_pen_charcoal">Charcoal</string>
+    <string name="color_pen_royal_blue">Blue</string>
+
+    <!-- Tasks -->
     <string name="tasks_header">Tasks</string>
     <string name="empty_state_title">Your ink pad is ready</string>
-    <string name="empty_state_body">Handwrite a task with your S Pen above, review the recognized text, and tap Add.</string>
+    <string name="empty_state_body">Handwrite with your S Pen above, then tap Copy, Save Note, or Add Task.</string>
     <string name="empty_state_image_cd">Illustration of an S Pen and digital ink pad</string>
     <string name="task_toggle_cd">Toggle task completion</string>
     <string name="task_delete_cd">Delete task</string>
     <string name="task_edit_title">Edit task</string>
     <string name="task_edit_placeholder">Task text</string>
+
+    <!-- Notes Tab -->
+    <string name="notes_header">Saved Notes</string>
+    <string name="notes_search_placeholder">Search notes…</string>
+    <string name="notes_empty_title">No saved notes yet</string>
+    <string name="notes_empty_body">Convert handwriting and tap Save Note, or create a note here anytime.</string>
+    <string name="notes_empty_search">No notes match your search.</string>
+    <string name="note_new_title">New note</string>
+    <string name="note_edit_title">Edit note</string>
+    <string name="note_title_placeholder">Title (optional)</string>
+    <string name="note_content_placeholder">Note content…</string>
+    <string name="note_untitled">Untitled note</string>
+    <string name="note_copy_cd">Copy note text</string>
+    <string name="note_delete_cd">Delete note</string>
+    <string name="note_load_to_write">Send to Write</string>
+    <string name="note_add_task_from_note">Add as Task</string>
+    <string name="note_fab_cd">Create new note</string>
+
+    <!-- Settings Tab -->
+    <string name="settings_header">Settings</string>
+    <string name="settings_google_sync_title">Google Sync Account</string>
+    <string name="settings_google_sync_subtitle_off">Sign in with Google to back up and sync your tasks and notes across devices.</string>
+    <string name="settings_sign_in_google">Sign in with Google</string>
+    <string name="settings_signing_in">Signing in…</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="settings_sync_now">Sync now</string>
+    <string name="settings_syncing">Syncing…</string>
+    <string name="settings_auto_sync">Auto-sync tasks &amp; notes</string>
+    <string name="settings_auto_sync_desc">Keep tasks and saved notes synced with your Google account</string>
+    <string name="settings_signed_in_badge">Cloud sync connected</string>
+    <string name="settings_colors_title">Colors</string>
+    <string name="settings_colors_desc">Customize the S Pen writing box surface and ink stroke color.</string>
+    <string name="settings_view_title">View Settings</string>
+    <string name="settings_show_guides">Show guide lines</string>
+    <string name="settings_show_guides_desc">Display subtle horizontal lines inside the writing box</string>
+    <string name="settings_auto_convert">Auto-convert handwriting</string>
+    <string name="settings_auto_convert_desc">Convert S Pen ink automatically 1.5s after lifting pen</string>
+    <string name="settings_pad_size">Writing box size</string>
+    <string name="settings_pad_size_compact">Compact</string>
+    <string name="settings_pad_size_standard">Standard</string>
+    <string name="settings_pad_size_tall">Tall</string>
+    <string name="settings_compact_lists">Compact list cards</string>
+    <string name="settings_compact_lists_desc">Tighter spacing to fit more tasks and notes on screen</string>
+    <string name="settings_about_title">About App</string>
+    <string name="settings_about_tagline">S Pen handwriting to bilingual Arabic &amp; English tasks and notes.</string>
+    <string name="settings_about_eraser_tip">Tip: Hold the S Pen side button and drag across any stroke to erase it.</string>
+    <string name="settings_about_version_label">Version</string>
+    <string name="settings_about_build_label">Build</string>
+
+    <!-- Errors & Snackbars -->
     <string name="error_no_internet">No internet connection. Connect to Wi-Fi or mobile data and tap Convert to try again.</string>
     <string name="error_empty_recognition">Could not read any text from the strokes. Try writing a little larger and tap Convert.</string>
     <string name="error_timeout">Handwriting recognition timed out. Please try again.</string>
     <string name="error_generic">Could not convert handwriting right now. Please try again.</string>
+    <string name="error_signin_cancelled">Google Sign-In was cancelled.</string>
+    <string name="error_signin_no_credentials">No Google account available on this device. Add one in Android Settings first.</string>
     <string name="snackbar_task_deleted">Task deleted</string>
+    <string name="snackbar_note_deleted">Note deleted</string>
     <string name="snackbar_undo">Undo</string>
+    <string name="snackbar_copied">Copied all recognized text</string>
+    <string name="snackbar_note_copied">Note copied to clipboard</string>
+    <string name="snackbar_note_saved">Saved to Notes</string>
+    <string name="snackbar_sync_done">Cloud sync completed</string>
 </resources>
