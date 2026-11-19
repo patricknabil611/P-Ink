@@ -26,22 +26,30 @@ import androidx.compose.material.icons.automirrored.rounded.Logout
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.CloudDone
 import androidx.compose.material.icons.rounded.CloudSync
+import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,10 +58,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.BuildConfig
 import com.example.R
+import com.example.ai.getAppCheckDebugToken
+import com.example.ai.setCustomAppCheckDebugToken
 import com.example.data.AppSettings
 import com.example.data.WritingPadSize
 import com.example.ui.theme.BorderSubtle
@@ -89,6 +100,8 @@ fun SettingsTab(
     onSetAutoConvertEnabled: (Boolean) -> Unit,
     onSetWritingPadSize: (WritingPadSize) -> Unit,
     onSetCompactLists: (Boolean) -> Unit,
+    onCopyText: (String, String) -> Unit,
+    onShowMessage: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -311,7 +324,138 @@ fun SettingsTab(
                 }
             }
 
-            // 2. Colors Settings
+            // 2. App Check Debug Token (for sideloaded APKs)
+            if (BuildConfig.DEBUG) {
+                var activeToken by remember { mutableStateOf(getAppCheckDebugToken(context)) }
+                var customTokenInput by remember { mutableStateOf("") }
+                val tokenCopiedMsg = stringResource(R.string.snackbar_debug_token_copied)
+                val tokenSavedMsg = stringResource(R.string.snackbar_debug_token_saved)
+
+                SettingsCard(
+                    icon = Icons.Rounded.Key,
+                    title = stringResource(R.string.settings_appcheck_title),
+                    testTag = "settings_appcheck_card",
+                ) {
+                    Text(
+                        text = stringResource(R.string.settings_appcheck_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = CoolSlate,
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Surface(
+                        color = ObsidianBg,
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .border(1.dp, BorderSubtle, RoundedCornerShape(12.dp)),
+                    ) {
+                        Text(
+                            text = activeToken.ifBlank { "…" },
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontFamily = FontFamily.Monospace,
+                            ),
+                            color = CyanOnContainer,
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp, vertical = 10.dp)
+                                .testTag("appcheck_debug_token_text"),
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    FilledTonalButton(
+                        onClick = {
+                            if (activeToken.isNotBlank()) {
+                                onCopyText(activeToken, tokenCopiedMsg)
+                            }
+                        },
+                        enabled = activeToken.isNotBlank(),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = CyanContainer,
+                            contentColor = CyanOnContainer,
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .testTag("copy_debug_token_button"),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.ContentCopy,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.settings_appcheck_copy),
+                            style = MaterialTheme.typography.labelLarge,
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        OutlinedTextField(
+                            value = customTokenInput,
+                            onValueChange = { customTokenInput = it },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(R.string.settings_appcheck_custom_hint),
+                                    color = MutedSlate,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            },
+                            singleLine = true,
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = ObsidianBg,
+                                unfocusedContainerColor = ObsidianBg,
+                                focusedBorderColor = CyanPrimary,
+                                unfocusedBorderColor = BorderSubtle,
+                                focusedTextColor = IceWhite,
+                                unfocusedTextColor = IceWhite,
+                                cursorColor = CyanPrimary,
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                                .testTag("custom_debug_token_input"),
+                        )
+
+                        Button(
+                            onClick = {
+                                if (setCustomAppCheckDebugToken(context, customTokenInput)) {
+                                    activeToken = getAppCheckDebugToken(context)
+                                    customTokenInput = ""
+                                    onShowMessage(tokenSavedMsg)
+                                }
+                            },
+                            enabled = customTokenInput.isNotBlank(),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = CyanPrimary,
+                                contentColor = CyanOnPrimary,
+                            ),
+                            contentPadding = PaddingValues(horizontal = 14.dp),
+                            modifier = Modifier
+                                .height(54.dp)
+                                .testTag("apply_debug_token_button"),
+                        ) {
+                            Text(
+                                text = stringResource(R.string.settings_appcheck_apply),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
+                            )
+                        }
+                    }
+                }
+            }
+
+            // 3. Colors Settings
             SettingsCard(
                 icon = Icons.Rounded.Palette,
                 title = stringResource(R.string.settings_colors_title),
@@ -330,7 +474,7 @@ fun SettingsTab(
                 )
             }
 
-            // 3. View Settings
+            // 4. View Settings
             SettingsCard(
                 icon = Icons.Rounded.Tune,
                 title = stringResource(R.string.settings_view_title),
@@ -403,7 +547,7 @@ fun SettingsTab(
                 )
             }
 
-            // 4. About App
+            // 5. About App
             SettingsCard(
                 icon = Icons.Rounded.Info,
                 title = stringResource(R.string.settings_about_title),

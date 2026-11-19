@@ -101,6 +101,13 @@
     <string name="settings_about_eraser_tip">Tip: Hold the S Pen side button and drag across any stroke to erase it.</string>
     <string name="settings_about_version_label">Version</string>
     <string name="settings_about_build_label">Build</string>
+    <string name="settings_appcheck_title">App Check Debug Token</string>
+    <string name="settings_appcheck_desc">Copy this device token and add it in Firebase Console → App Check → P Ink → Manage debug tokens to authorize Gemini OCR on sideloaded APKs.</string>
+    <string name="settings_appcheck_copy">Copy Token</string>
+    <string name="settings_appcheck_custom_hint">Or paste registered debug token UUID…</string>
+    <string name="settings_appcheck_apply">Apply</string>
+    <string name="snackbar_debug_token_copied">Debug token copied</string>
+    <string name="snackbar_debug_token_saved">Debug token saved. Reopen app if token refreshes slowly.</string>
 
     <!-- Errors & Snackbars -->
     <string name="error_no_internet">No internet connection. Connect to Wi-Fi or mobile data and tap Convert to try again.</string>

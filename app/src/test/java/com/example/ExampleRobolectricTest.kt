@@ -62,11 +62,11 @@ class ExampleRobolectricTest {
     }
 
     @Test
-    fun `app name matches P Ink and version matches 26_06_26_3`() {
+    fun `app name matches P Ink and version matches 26_06_26_4`() {
         val appName = context.getString(R.string.app_name)
         assertEquals("P Ink", appName)
-        assertEquals("26.06.26.3", BuildConfig.VERSION_NAME)
-        assertEquals(2606263, BuildConfig.VERSION_CODE)
+        assertEquals("26.06.26.4", BuildConfig.VERSION_NAME)
+        assertEquals(2606264, BuildConfig.VERSION_CODE)
     }
 
     @Test
@@ -278,5 +278,17 @@ class ExampleRobolectricTest {
         }
         migratedDb.close()
         context.deleteDatabase(dbName)
+    }
+
+    @Test
+    fun `app check helper creates stable debug token and supports custom token override`() {
+        com.example.ai.configureAppCheck(context, null)
+        val initial = com.example.ai.getAppCheckDebugToken(context)
+        assertTrue(initial.isNotBlank())
+        assertEquals(initial, com.example.ai.getAppCheckDebugToken(context))
+
+        val customUuid = "11111111-2222-3333-4444-555555555555"
+        assertTrue(com.example.ai.setCustomAppCheckDebugToken(context, customUuid))
+        assertEquals(customUuid, com.example.ai.getAppCheckDebugToken(context))
     }
 }

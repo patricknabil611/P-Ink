@@ -111,6 +111,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.R
@@ -339,6 +340,8 @@ fun TodoScreen(
                                 onSetAutoConvertEnabled = viewModel::onSetAutoConvertEnabled,
                                 onSetWritingPadSize = viewModel::onSetWritingPadSize,
                                 onSetCompactLists = viewModel::onSetCompactLists,
+                                onCopyText = { text, msg -> copyToClipboard(text, msg) },
+                                onShowMessage = { msg -> showTransientMessage(msg) },
                             )
                         }
                     }
@@ -1129,9 +1132,13 @@ private fun ColumnScope.WritingAndComposePane(
 
     // Draft actions: Copy all text, Save Note, Add Task
     val hasDraftText = draftText.isNotBlank()
+    val compactButtonTextStyle = MaterialTheme.typography.labelLarge.copy(
+        fontSize = 13.sp,
+        letterSpacing = 0.sp,
+    )
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         OutlinedButton(
             onClick = onCopyDraftText,
@@ -1141,21 +1148,21 @@ private fun ColumnScope.WritingAndComposePane(
                 contentColor = IceWhite,
                 disabledContentColor = MutedSlate,
             ),
-            contentPadding = PaddingValues(horizontal = 8.dp),
+            contentPadding = PaddingValues(horizontal = 6.dp),
             modifier = Modifier
-                .weight(0.85f)
+                .weight(0.80f)
                 .height(48.dp)
                 .testTag("copy_text_button"),
         ) {
             Icon(
                 imageVector = Icons.Rounded.ContentCopy,
                 contentDescription = null,
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.size(15.dp),
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = stringResource(R.string.btn_copy),
-                style = MaterialTheme.typography.labelLarge,
+                style = compactButtonTextStyle,
                 maxLines = 1,
                 softWrap = false,
             )
@@ -1171,21 +1178,21 @@ private fun ColumnScope.WritingAndComposePane(
                 disabledContainerColor = SlateSurface,
                 disabledContentColor = MutedSlate,
             ),
-            contentPadding = PaddingValues(horizontal = 8.dp),
+            contentPadding = PaddingValues(horizontal = 6.dp),
             modifier = Modifier
-                .weight(1.05f)
+                .weight(1.10f)
                 .height(48.dp)
                 .testTag("save_note_button"),
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Rounded.NoteAdd,
                 contentDescription = null,
-                modifier = Modifier.size(17.dp),
+                modifier = Modifier.size(15.dp),
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = stringResource(R.string.btn_save_note),
-                style = MaterialTheme.typography.labelLarge,
+                style = compactButtonTextStyle,
                 maxLines = 1,
                 softWrap = false,
             )
@@ -1201,21 +1208,21 @@ private fun ColumnScope.WritingAndComposePane(
                 disabledContainerColor = CharcoalSurfaceVariant,
                 disabledContentColor = MutedSlate,
             ),
-            contentPadding = PaddingValues(horizontal = 10.dp),
+            contentPadding = PaddingValues(horizontal = 6.dp),
             modifier = Modifier
-                .weight(1.1f)
+                .weight(1.10f)
                 .height(48.dp)
                 .testTag("add_task_button"),
         ) {
             Icon(
                 imageVector = Icons.Rounded.Add,
                 contentDescription = null,
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(16.dp),
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(3.dp))
             Text(
                 text = stringResource(R.string.btn_add),
-                style = MaterialTheme.typography.labelLarge,
+                style = compactButtonTextStyle,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
                 softWrap = false,
@@ -1408,7 +1415,7 @@ private fun EmptyTasksState(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 6.dp),
+            .padding(horizontal = 20.dp, vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -1417,12 +1424,12 @@ private fun EmptyTasksState(
             contentDescription = stringResource(R.string.empty_state_image_cd),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .widthIn(max = 190.dp)
-                .height(108.dp)
-                .clip(RoundedCornerShape(18.dp))
-                .border(1.dp, BorderSubtle, RoundedCornerShape(18.dp)),
+                .widthIn(max = 165.dp)
+                .height(88.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .border(1.dp, BorderSubtle, RoundedCornerShape(16.dp)),
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = stringResource(R.string.empty_state_title),
             style = MaterialTheme.typography.titleMedium,

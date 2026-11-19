@@ -16,8 +16,8 @@ android {
     applicationId = "com.aistudio.pink.spenzx"
     minSdk = 24
     targetSdk = 36
-    versionCode = 2606263
-    versionName = "26.06.26.3"
+    versionCode = 2606264
+    versionName = "26.06.26.4"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }

@@ -68,11 +68,13 @@ class MainActivityLaunchTest {
         }
         composeRule.onNodeWithTag("notes_list").assertIsDisplayed()
 
-        // Navigate to Settings tab and verify Google Sync, Colors, View Settings, and About sections
+        // Navigate to Settings tab and verify Google Sync, App Check token, Colors, View Settings, and About sections
         composeRule.onNodeWithTag("nav_tab_settings").performClick()
         composeRule.onNodeWithTag("settings_google_sync_card").assertIsDisplayed()
         composeRule.onNodeWithTag("google_signin_button").assertIsDisplayed()
-        composeRule.onNodeWithTag("settings_colors_card").assertIsDisplayed()
+        composeRule.onNodeWithTag("settings_appcheck_card").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("copy_debug_token_button").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("settings_colors_card").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithTag("settings_view_card").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithTag("settings_about_card").performScrollTo().assertIsDisplayed()
 
